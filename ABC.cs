@@ -8,92 +8,15 @@ using System.Xml;
 
 namespace ABC
 {
-	public class HomeViewModel: BaseViewModel
+	public class abc:BaseViewModel
 	{		
-		private INavigation _navigation; 		
-
-		public HomeViewModel(INavigation navigation)
-		{
-			_navigation = navigation;
-		}
-		#region Loading indicator
-
-		private bool isLoading;
-		public bool IsLoading
-		{
-			get { return isLoading; }
-			set
-			{
-				isLoading = value;
-				OnPropertyChanged();
-			}
-		}
-		#endregion
-
-		#region Command for Chapters button
-
-		public ICommand ChaptersClick
-		{
-			get
-			{
-				return new Command (async () =>
-					{
-						IsLoading=true;
-						_navigation.PushModalAsync(new ChapterListView ());
-						IsLoading=false;
-					}
-				);
-			}
-		}
-
-		#endregion
-
-		#region Command for About Us button
-
-		public ICommand AboutUsClick
-		{
-			get
-			{
-				return new Command (async () =>
-					{
-						IsLoading=true;
-						_navigation.PushModalAsync(new AboutUsView ());
-						IsLoading=false;
-					}
-				);
-			}
-		}
-		#endregion
-
+		
 		#region Command for Share button 
 
-		private Command _checkInternet;
-		//For check internet connection.
-		public Command CheckInternet
-		{
-			get
-			{
-				return _checkInternet ?? (_checkInternet = new Command(async () => await CheckInternetConnection()));
-			}
-		}
-		//For share application link on facebook and twitter.
-		string shareMsg="I am using this app to read bible in Zo Language. You can download it from the link";
-		private async Task CheckInternetConnection()
-		{			
-			try
-
-			{				
-				if (!IsNetworkConnected) 
-				{
-					IsLoading=true;					
-					ZoHolyBibleApp.Instance.Alert("Alert", AppResources.NoInternet,AppResources.OK);
-
-				}
-				else
-				{
+		
 					IsLoading=true;					
 
-					var action = await ZoHolyBibleApp.Instance.DisplayActionSheet ("Share ZoHolyBible", "Cancel","", "Facebook","Twitter");
+					var action = await App.Instance.DisplayActionSheet ("Share app","Cancel","", "Facebook","Twitter");
 
 					switch (action)
 					{
@@ -106,7 +29,7 @@ namespace ABC
 						}
 						catch (Exception ex)
 						{
-							ZoHolyBibleApp.Instance.Alert("Facebook application is not exist.", "Facebook", "Ok");
+							App.Instance.Alert("Facebook application is not exist.", "Facebook", "Ok");
 							IsLoading=false;					
 
 						}			
@@ -120,7 +43,7 @@ namespace ABC
 						}
 						catch (Exception ex)
 						{
-							ZoHolyBibleApp.Instance.Alert("Twitter application is not exist.", "Twitter", "Ok");
+							App.Instance.Alert("Twitter application is not exist.", "Twitter", "Ok");
 							IsLoading=false;					
 
 						}	
