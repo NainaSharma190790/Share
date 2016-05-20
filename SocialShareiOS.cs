@@ -8,7 +8,7 @@ using Social;
 
 [assembly: Xamarin.Forms.Dependency(typeof(SocialShare))]
 
-namespace ZoHolyBible.iOS
+namespace ABC.iOS
 {
 	public class SocialShare: ISocialShare
 	{
