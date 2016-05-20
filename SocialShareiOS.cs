@@ -1,6 +1,6 @@
 ﻿
 using System;
-using ZoHolyBible.iOS;
+using ABC.iOS;
 using Foundation;
 using UIKit;
 using Social;
